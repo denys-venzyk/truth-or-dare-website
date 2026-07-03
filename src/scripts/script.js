@@ -131,7 +131,10 @@ function next() {
 startBtn.addEventListener("click", startGame);
 
 function addPlayer() {
-  
+  if (playerCount > 1 && document.querySelector(".player" + (playerCount - 1)).value.trim() === "") {
+    txt.innerText = `Please fill in the player №${playerCount - 1} name before adding a new player.`;
+    return;
+  }
   const playerInput = document.createElement("input");
   playerInput.className = "player" + playerCount;
   playerInput.placeholder = "Player " + playerCount;
