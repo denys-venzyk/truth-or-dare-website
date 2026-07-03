@@ -17,9 +17,16 @@ let playerSequence = 1;
 
 function startGame() {
   const savedPlayers = savePlayers();
-  
+  if (Object.keys(savedPlayers).length < 2) {
+    txt.innerText = "Please add at least two players to start the game.";
+    return;
+  } else if (Object.values(savedPlayers).some(player => player.name.trim() === "")) {
+    txt.innerText = "Please fill in all player names before starting the game.";
+    return;
+  }
   console.log("savedPlayers: ", savedPlayers);
   startBtn.remove();
+  txt.innerText = "";
 
   newBtn = document.createElement("button");
   newBtn.id = "next-btn";
