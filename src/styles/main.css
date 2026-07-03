@@ -1,0 +1,5 @@
+@import './utils/variables.css';
+@import './blocks/header.css';
+@import './blocks/start-btn.css';
+@import './blocks/page.css';
+@import './blocks/page-main.css';
