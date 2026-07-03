@@ -1,1 +1,1 @@
-# truth-or-dare-website\
+# truth-or-dare-website

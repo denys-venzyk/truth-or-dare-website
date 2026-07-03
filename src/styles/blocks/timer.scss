@@ -1,0 +1,11 @@
+.timer {
+  display: flex; 
+  justify-content: $main-align; 
+  align-items: $main-align;
+
+  &__clock {
+    font-size: 150px;
+    font-weight: bold;
+  }
+}
+
