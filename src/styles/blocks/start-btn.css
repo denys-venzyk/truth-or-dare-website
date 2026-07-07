@@ -4,4 +4,5 @@
   background-color: green;
   border-radius: 5px;
   border: none;
+  grid-column: 2 / 3;
 }
