@@ -1,7 +1,9 @@
+//Importing truth/dare tasks
 import questionsTruth from "./questionsTruth.js";
 import questionsDare from "./questionsDare.js";
 
-const txt = document.getElementById("question-text");
+//global variables
+const txt = document.getElementById("all-text");
 const startBtn = document.getElementById("start-btn");
 const addPlayerBtn = document.getElementById("add-player-btn");
 
@@ -16,6 +18,7 @@ let savedPlayers = {};
 let playerSequence = 0;
 let choice = false;
 
+//function which works when button "Start" is clicked
 function startGame() {
   savedPlayers = savePlayers(); 
   
@@ -55,7 +58,7 @@ function startGame() {
   highlightCurrentPlayer();
 }
 
-
+//function that chooses what type of question to display, resolves different possible issues with truth/dare buttons logic
 function handleChoice(type) {
   if (choice === true) {
     txt.innerText = "You have already chosen. Please click 'Next' to proceed to the next player.";
@@ -99,6 +102,7 @@ function handleChoice(type) {
   choice = true;
 }
 
+//function which passes to the next player
 function nextPlayer() {
   const playerKeys = Object.keys(savedPlayers);
   if (!choice) {
@@ -115,6 +119,7 @@ function nextPlayer() {
   txt.innerText = "Choose Truth or Dare!";
 }
 
+//function which works in pair with nextPlayer, it makes current player green and all others black 
 function highlightCurrentPlayer() {
   const playerInputs = document.querySelectorAll("#player-list h1");
   playerInputs.forEach(p => p.style.color = "black");
@@ -123,11 +128,12 @@ function highlightCurrentPlayer() {
   }
 }
 
+//function which works when "Add Player" button is clicked
 function addPlayer() {
   if (playerCount > 1) {
     const playerNumbers = [];
     for (let i = 1; i < playerCount; i++) {
-      const input = document.querySelector(".player" + i);
+      const input = document.querySelector("#player" + i);
       if (input && input.value.trim() === "") {
         playerNumbers.push(i);
       }
@@ -139,7 +145,8 @@ function addPlayer() {
   };
 
   const container = document.createElement("div");
-  container.className =`player-container-${playerCount}`; 
+  container.id =`player-container-${playerCount}`; 
+  container.className ="player-container"; 
 
   const playerInput = document.createElement("input");
   const deletePlayerBtn = document.createElement("button");
@@ -147,32 +154,36 @@ function addPlayer() {
   deletePlayerBtn.className = "delete-player-btn";
   deletePlayerBtn.addEventListener("click", () => removePlayer(container));
   container.appendChild(deletePlayerBtn);
-  playerInput.className = "player" + playerCount;
+  playerInput.id = "player" + playerCount;
+  playerInput.className = "playerName";
   playerInput.placeholder = "Player " + playerCount;
   container.appendChild(playerInput);
   document.querySelector(".player-inputs").appendChild(container);
   playerCount++;
 }
-addPlayerBtn.addEventListener("click", addPlayer);
 
+
+//function which works when "Delete Player" buttons are clicked
 function removePlayer(id) {
   if (playerCount > 1) {
-    const num = id.className.split('-')[2];
-    const playerInput = document.querySelector(`.player-container-${num}`);
+    const num = id.id.split('-')[2];
+    const playerInput = document.querySelector(`#player-container-${num}`);
     if (playerInput) {
       playerInput.remove();
       for (let i = Number(num) + 1; i < playerCount; i++) {
         
-        const player = document.querySelector(`.player-container-${i}`);
-        player.className = `player-container-${i - 1}`;
+        const player = document.querySelector(`#player-container-${i}`);
+        player.id = `player-container-${i - 1}`;
         const input = player.querySelector('input');
-        input.className = `player${i - 1}`;
+        input.id = `player${i - 1}`;
         input.placeholder = `Player ${i - 1}`;
       }
       playerCount--;
     }
   }
 }
+
+//function which works in the beginning of everything, it saves all players with their names and score
 function savePlayers() {
   const playerInputs = document.querySelectorAll(".player-inputs input");
   const tempPlayers = {};
@@ -182,6 +193,7 @@ function savePlayers() {
   return tempPlayers;
 }
 
+//function which displays players' names on the screen
 function displayPlayers(players) {
   addPlayerBtn.remove();
   
@@ -202,3 +214,4 @@ function displayPlayers(players) {
 }
 
 startBtn.addEventListener("click", startGame);
+addPlayerBtn.addEventListener("click", addPlayer);
