@@ -129,31 +129,11 @@ function openWindow() {
  const myWindow = document.createElement("div");
   
   myWindow.className = "my-window";
-  myWindow.style.position = "fixed";
-  myWindow.style.top = "0";
-  myWindow.style.left = "0";
-  myWindow.style.width = "100vw";
-  myWindow.style.height = "100vh";
-  myWindow.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-  myWindow.style.zIndex = "9998";
-
-  
-  myWindow.style.display = "flex";
-  myWindow.style.justifyContent = "center";
-  myWindow.style.alignItems = "center";
 
   
   const popUp = document.createElement("div");
-  popUp.style.width = "400px";
-  popUp.style.height = "300px";
-  popUp.style.backgroundColor = "white";
-  popUp.style.zIndex = "9999";
-  popUp.style.padding = "20px";
-  popUp.style.borderRadius = "8px";
-  
-  popUp.style.display = "flex";
-  popUp.style.justifyContent = "center";
-  popUp.style.alignItems = "center";
+  popUp.className = "popUp";
+
 
   const inputMessage = document.createElement("h1");
   const playerInput = document.createElement("input");
@@ -186,15 +166,16 @@ function savePlayer(player, myWindow) {
   container.className ="player-container"; 
 
   const playerName = document.createElement("h2");
-  const deletePlayerBtn = document.createElement("button");
-  deletePlayerBtn.innerText = "Delete Player";
+  const deletePlayerBtn = document.createElement("img");
+  deletePlayerBtn.src = "../public/images/bin.png";
   deletePlayerBtn.className = "delete-player-btn";
   deletePlayerBtn.addEventListener("click", () => removePlayer(container));
-  container.appendChild(deletePlayerBtn);
+  
   playerName.id = "player" +player.id;
-  playerName.className = "playerName";
+  playerName.className = "player-name";
   playerName.innerText = player.value;
   container.appendChild(playerName);
+  container.appendChild(deletePlayerBtn);
   document.querySelector(".player-inputs").appendChild(container);
   playerCount++;
 }
@@ -240,12 +221,11 @@ function displayPlayers(players) {
 
   const playerList = document.createElement("div");
   playerList.id = "player-list";
-  playerList.style.display = "flex";
 
   for (const player in players) {
     const item = document.createElement("h1");
+    item.className = "displayed-player";
     item.textContent = players[player].name;
-    item.style.marginRight = "20px";
     playerList.appendChild(item);
   }
   document.body.appendChild(playerList);
