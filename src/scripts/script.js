@@ -11,8 +11,6 @@ let newBtn = null;
 let choiceBtn1 = null;
 let choiceBtn2 = null;
 
-let counter1 = -1;
-let counter2 = -1;
 let playerCount = 1;
 let savedPlayers = {};
 let playerSequence = 0;
@@ -75,24 +73,26 @@ function handleChoice(type) {
       return;
     }
 
-    if (counter1 > questionsTruth.length - 2) {
+    if (questionsTruth.length === 0) {
       txt.innerText = "Congrats, you answered all Truth questions!";
       return;
     }
 
-    counter1++;
+    let randomIndex = Math.floor(Math.random()*questionsTruth.length);
     currentPlayer.streak++;
-    question = questionsTruth[counter1];
+    question = questionsTruth[randomIndex];
+    questionsTruth.splice(randomIndex, 1);
 
   } else if (type === "dare") {
-    if (counter2 > questionsDare.length - 2) {
+    if (questionsDare.length == 0) {
       txt.innerText = "Congrats, you answered all Dare questions!";
       return;
     }
 
-    counter2++;
+    let randomIndex = Math.floor(Math.random() * questionsDare.length);
     currentPlayer.streak = 0;
-    question = questionsDare[counter2];
+    question = questionsDare[randomIndex];
+    questionsDare.splice(randomIndex, 1);
   }
 
   txt.innerText = question;
