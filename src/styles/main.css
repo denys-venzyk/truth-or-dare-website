@@ -39,3 +39,15 @@
     align-items: center;
     width: 500px;
 }
+.popUp {
+    display: flex;
+    flex-direction: column;
+}
+.player-logo {
+    height: 100px;
+    width: 100px;
+}
+.logo-and-save {
+    display: flex;
+    align-items: center;
+}

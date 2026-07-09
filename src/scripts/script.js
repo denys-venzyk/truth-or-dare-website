@@ -1,6 +1,7 @@
 //Importing truth/dare tasks
 import questionsTruth from "./questionsTruth.js";
 import questionsDare from "./questionsDare.js";
+import logos from "./logos.js";
 
 //global variables
 const txt = document.getElementById("all-text");
@@ -16,7 +17,7 @@ let playerCount = 1;
 let savedPlayers = {};
 let playerSequence = 0;
 let choice = false;
-
+let currentLogo = 0;
 //function which works when button "Start" is clicked
 function startGame() {
   savedPlayers = savePlayers(); 
@@ -138,23 +139,67 @@ function openWindow() {
   const inputMessage = document.createElement("h1");
   const playerInput = document.createElement("input");
   const saveBtn = document.createElement("button");
+  const logoMessage = document.createElement("h1");
+  const playerLogo = document.createElement("img");
+
+  const logoChoice = document.createElement("div");
+  const arrowLeft = document.createElement("img");
+  const arrowRight = document.createElement("img");
+  const logoAndSave = document.createElement("div");
+
+  arrowLeft.src = "../public/images/left-arrow.png";
+  arrowRight.src = "../public/images/right-arrow.png";
 
   saveBtn.innerText = "Save";
-  inputMessage.innerText = "Write down your nickname"
+  inputMessage.innerText = "Write down your nickname";
+  logoMessage.innerText = "Choose your logo";
   playerInput.id = playerCount;
   playerInput.className = "playerName";
   playerInput.placeholder = "Player " + playerCount;
+  playerLogo.src = "../public/images/logo1.png";
+  playerLogo.className = "player-logo";
+  
+  logoAndSave.className = "logo-and-save";
+
+  logoChoice.appendChild(arrowLeft);
+  logoChoice.appendChild(playerLogo);
+  logoChoice.appendChild(arrowRight);
 
   popUp.appendChild(inputMessage);
   popUp.appendChild(playerInput);
-  popUp.appendChild(saveBtn);
+  popUp.appendChild(logoMessage);
+  logoAndSave.appendChild(logoChoice);
+  logoAndSave.appendChild(saveBtn);
+
+  popUp.appendChild(logoAndSave);
+
   myWindow.appendChild(popUp);
   document.body.appendChild(myWindow);
-  saveBtn.addEventListener("click", () => savePlayer(playerInput, myWindow));
+  saveBtn.addEventListener("click", () => savePlayer(playerInput, myWindow, playerLogo));
+  arrowLeft.addEventListener("click", () => left(playerLogo));
+  arrowRight.addEventListener("click", () => right(playerLogo));
+}
+
+function left(logo) {
+  currentLogo--;
+
+  if (currentLogo < 0) {
+    currentLogo = logos.length - 1;
+  }
+  logo.src = logos[currentLogo];
+}
+
+function right(logo) {
+  currentLogo++;
+
+  if (currentLogo >= logos.length) {
+    currentLogo = 0;
+  }
+  logo.src = logos[currentLogo];
 }
 
 
-function savePlayer(player, myWindow) {
+function savePlayer(player, myWindow, logo) {
   if (player.value.trim() === "") {
     const text = myWindow.querySelector("h1");
     text.innerText = "Write your name normally!";
@@ -174,6 +219,7 @@ function savePlayer(player, myWindow) {
   playerName.id = "player" +player.id;
   playerName.className = "player-name";
   playerName.innerText = player.value;
+  container.appendChild(logo);
   container.appendChild(playerName);
   container.appendChild(deletePlayerBtn);
   document.querySelector(".player-inputs").appendChild(container);
@@ -205,10 +251,12 @@ function removePlayer(id) {
 //function which works in the beginning of everything, it saves all players with their names and score
 function savePlayers() {
   const playerInputs = document.querySelectorAll(".player-inputs h2");
+   const playerLogos = document.querySelectorAll(".player-logo");
   const tempPlayers = {};
   playerInputs.forEach((input, index) => {
-    tempPlayers[`player${index + 1}`] = { name: input.innerText, score: 0, streak: 0 };
+    tempPlayers[`player${index + 1}`] = { name: input.innerText, score: 0, streak: 0, logo: playerLogos[index] };
   });
+  
   return tempPlayers;
 }
 
@@ -223,10 +271,16 @@ function displayPlayers(players) {
   playerList.id = "player-list";
 
   for (const player in players) {
+    const container = document.createElement("div");
+    const logo = players[player].logo;
     const item = document.createElement("h1");
-    item.className = "displayed-player";
+    item.className = "displayed-player-name";
+    container.className = "displayed-player";
     item.textContent = players[player].name;
-    playerList.appendChild(item);
+    container.appendChild(logo);
+    container.appendChild(item);
+
+    playerList.appendChild(container);
   }
   document.body.appendChild(playerList);
 }
