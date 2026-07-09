@@ -6,7 +6,6 @@ import questionsDare from "./questionsDare.js";
 const txt = document.getElementById("all-text");
 const startBtn = document.getElementById("start-btn");
 const addPlayerBtn = document.getElementById("add-player-btn");
-
 let newBtn = null;
 let choiceBtn1 = null;
 let choiceBtn2 = null;
@@ -25,13 +24,10 @@ function startGame() {
   if (Object.keys(savedPlayers).length < 2) {
     txt.innerText = "Please add at least two players to start the game.";
     return;
-  } else if (Object.values(savedPlayers).some(player => player.name.trim() === "")) {
-    txt.innerText = "Please fill in all player names before starting the game.";
-    return;
   }
 
   startBtn.remove();
-  txt.innerText = "";
+  txt.innerText = "Choose Truth or Dare";
 
 
   newBtn = document.createElement("button");
@@ -128,40 +124,82 @@ function highlightCurrentPlayer() {
   }
 }
 
-//function which works when "Add Player" button is clicked
-function addPlayer() {
-  if (playerCount > 1) {
-    const playerNumbers = [];
-    for (let i = 1; i < playerCount; i++) {
-      const input = document.querySelector("#player" + i);
-      if (input && input.value.trim() === "") {
-        playerNumbers.push(i);
-      }
-    }
-    if (playerNumbers.length > 0) {
-      txt.innerText = `Please fill in the player №${playerNumbers} name before adding a new player.`;
-      return;
-    };
-  };
 
+function openWindow() {
+ const myWindow = document.createElement("div");
+  
+  myWindow.className = "my-window";
+  myWindow.style.position = "fixed";
+  myWindow.style.top = "0";
+  myWindow.style.left = "0";
+  myWindow.style.width = "100vw";
+  myWindow.style.height = "100vh";
+  myWindow.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+  myWindow.style.zIndex = "9998";
+
+  
+  myWindow.style.display = "flex";
+  myWindow.style.justifyContent = "center";
+  myWindow.style.alignItems = "center";
+
+  
+  const popUp = document.createElement("div");
+  popUp.style.width = "400px";
+  popUp.style.height = "300px";
+  popUp.style.backgroundColor = "white";
+  popUp.style.zIndex = "9999";
+  popUp.style.padding = "20px";
+  popUp.style.borderRadius = "8px";
+  
+  popUp.style.display = "flex";
+  popUp.style.justifyContent = "center";
+  popUp.style.alignItems = "center";
+
+  const inputMessage = document.createElement("h1");
+  const playerInput = document.createElement("input");
+  const saveBtn = document.createElement("button");
+
+  saveBtn.innerText = "Save";
+  inputMessage.innerText = "Write down your nickname"
+  playerInput.id = playerCount;
+  playerInput.className = "playerName";
+  playerInput.placeholder = "Player " + playerCount;
+
+  popUp.appendChild(inputMessage);
+  popUp.appendChild(playerInput);
+  popUp.appendChild(saveBtn);
+  myWindow.appendChild(popUp);
+  document.body.appendChild(myWindow);
+  saveBtn.addEventListener("click", () => savePlayer(playerInput, myWindow));
+}
+
+
+function savePlayer(player, myWindow) {
+  if (player.value.trim() === "") {
+    const text = myWindow.querySelector("h1");
+    text.innerText = "Write your name normally!";
+    return;
+  }
+  myWindow.remove();
   const container = document.createElement("div");
-  container.id =`player-container-${playerCount}`; 
+  container.id =`player-container-${player.id}`; 
   container.className ="player-container"; 
 
-  const playerInput = document.createElement("input");
+  const playerName = document.createElement("h2");
   const deletePlayerBtn = document.createElement("button");
   deletePlayerBtn.innerText = "Delete Player";
   deletePlayerBtn.className = "delete-player-btn";
   deletePlayerBtn.addEventListener("click", () => removePlayer(container));
   container.appendChild(deletePlayerBtn);
-  playerInput.id = "player" + playerCount;
-  playerInput.className = "playerName";
-  playerInput.placeholder = "Player " + playerCount;
-  container.appendChild(playerInput);
+  playerName.id = "player" +player.id;
+  playerName.className = "playerName";
+  playerName.innerText = player.value;
+  container.appendChild(playerName);
   document.querySelector(".player-inputs").appendChild(container);
   playerCount++;
 }
 
+/**/
 
 //function which works when "Delete Player" buttons are clicked
 function removePlayer(id) {
@@ -174,7 +212,7 @@ function removePlayer(id) {
         
         const player = document.querySelector(`#player-container-${i}`);
         player.id = `player-container-${i - 1}`;
-        const input = player.querySelector('input');
+        const input = player.querySelector('h2');
         input.id = `player${i - 1}`;
         input.placeholder = `Player ${i - 1}`;
       }
@@ -185,10 +223,10 @@ function removePlayer(id) {
 
 //function which works in the beginning of everything, it saves all players with their names and score
 function savePlayers() {
-  const playerInputs = document.querySelectorAll(".player-inputs input");
+  const playerInputs = document.querySelectorAll(".player-inputs h2");
   const tempPlayers = {};
   playerInputs.forEach((input, index) => {
-    tempPlayers[`player${index + 1}`] = { name: input.value, score: 0, streak: 0 };
+    tempPlayers[`player${index + 1}`] = { name: input.innerText, score: 0, streak: 0 };
   });
   return tempPlayers;
 }
@@ -214,4 +252,4 @@ function displayPlayers(players) {
 }
 
 startBtn.addEventListener("click", startGame);
-addPlayerBtn.addEventListener("click", addPlayer);
+addPlayerBtn.addEventListener("click", openWindow);
