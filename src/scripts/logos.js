@@ -1,5 +1,5 @@
 const logos = [];
-const total = 2;
+const total = 10;
 
 for (let i = 1; i <= total; i++) {
     const src = `../public/images/logo${i}.png`;
