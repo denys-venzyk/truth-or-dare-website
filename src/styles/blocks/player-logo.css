@@ -1,0 +1,6 @@
+.player-logo {
+  grid-column: 1 / 2;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}

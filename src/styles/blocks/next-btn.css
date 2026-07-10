@@ -1,0 +1,9 @@
+#next-btn {
+  height: 50px;
+  width: 100px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  border: none;
+  margin-right: 20px;
+  margin-left: 20px;
+}
