@@ -1,0 +1,8 @@
+#player-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-top: 20px;
+}
