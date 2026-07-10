@@ -30,6 +30,7 @@ export function openWindow() {
   logoMessage.innerText = "Choose your logo";
   playerInput.id = state.playerCount;
   playerInput.className = "playerName";
+  playerInput.maxLength = "13";
   playerInput.placeholder = "Player " + state.playerCount;
   playerLogo.src = "../public/images/logo1.png";
   playerLogo.className = "player-logo";
