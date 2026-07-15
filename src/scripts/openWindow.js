@@ -22,8 +22,8 @@ export function openWindow() {
   const arrowRight = document.createElement("img");
   const logoAndSave = document.createElement("div");
 
-  arrowLeft.src = ".images/left-arrow.png";
-  arrowRight.src = ".images/right-arrow.png";
+  arrowLeft.src = "./images/left-arrow.png";
+  arrowRight.src = "./images/right-arrow.png";
 
   saveBtn.innerText = "Save";
   inputMessage.innerText = "Write down your nickname";
@@ -32,7 +32,7 @@ export function openWindow() {
   playerInput.className = "playerName";
   playerInput.maxLength = "13";
   playerInput.placeholder = "Player " + state.playerCount;
-  playerLogo.src = ".images/logo1.png";
+  playerLogo.src = "./images/logo1.png";
   playerLogo.className = "player-logo";
 
   logoAndSave.className = "logo-and-save";
