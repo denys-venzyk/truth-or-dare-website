@@ -13,7 +13,7 @@ export function savePlayer(player, myWindow, logo, state) {
 
   const playerName = document.createElement("h2");
   const deletePlayerBtn = document.createElement("img");
-  deletePlayerBtn.src = "../public/images/bin.png";
+  deletePlayerBtn.src = "images/bin.png";
   deletePlayerBtn.className = "delete-player-btn";
   deletePlayerBtn.addEventListener("click", () => removePlayer(container, state));
 
