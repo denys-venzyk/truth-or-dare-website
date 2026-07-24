@@ -1,9 +1,11 @@
 import { removePlayer } from "./removePlayer.js";
-
+let timer = null;
 export function savePlayer(player, myWindow, logo, state) {
   if (player.value.trim() === "") {
+    clearTimeout(timer);
     const text = myWindow.querySelector("h1");
     text.innerText = "Write your name normally!";
+    timer = setTimeout(()=> {text.innerText = "Write down your nickname"}, 2000);
     return;
   }
   myWindow.remove();

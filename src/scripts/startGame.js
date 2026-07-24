@@ -5,11 +5,16 @@ import { highlightCurrentPlayer } from "./highlightCurrentPlayer.js";
 import { state,txt,startBtn } from "./globalVars.js";
 import {savePlayers} from "./savePlayers.js";
 
+
+ let timer = null;
+ 
 export function startGame() {
   state.savedPlayers = savePlayers();
 
   if (Object.keys(state.savedPlayers).length < 2) {
+    clearTimeout(timer);
     txt.innerText = "Please add at least two players to start the game.";
+    timer = setTimeout(()=> {txt.innerText = ""}, 2000);
     return;
   }
 
