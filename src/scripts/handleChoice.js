@@ -1,11 +1,20 @@
 import {state, txt} from "./globalVars.js";
 import questionsDare from "./questionsDare.js";
 import questionsTruth from "./questionsTruth.js";
+import {timer} from "./nextPlayer.js"
 
+let timer2 = null;
+let prevText = "";
 export function handleChoice(type) {
+  if (timer) clearTimeout(timer);
   if (state.choice === true) {
+    clearTimeout(timer2);
+    if (txt.innerText !== "You have already chosen. Please click 'Next' to proceed to the next player.") {
+       prevText = txt.innerText;
+    }
     txt.innerText =
       "You have already chosen. Please click 'Next' to proceed to the next player.";
+      timer2 = setTimeout(()=> {txt.innerText = prevText}, 2000);
     return;
   }
 
@@ -17,7 +26,10 @@ export function handleChoice(type) {
 
   if (type === "truth") {
     if (currentPlayer.streak === 3) {
+      clearTimeout(timer2);
+      
       txt.innerText = `${currentPlayer.name}, you chose Truth 3 times in a row! You MUST choose Dare!`;
+      timer2 = setTimeout(()=> {txt.innerText = "Choose Truth or Dare"}, 2000);
       return;
     }
 

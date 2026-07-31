@@ -2,7 +2,7 @@ const logos = [];
 const total = 10;
 
 for (let i = 1; i <= total; i++) {
-    const src = `./images/logo${i}.png`;
+    const src = `./images/logo${i}.webp`;
     if (!src) {
         break;
     } else {

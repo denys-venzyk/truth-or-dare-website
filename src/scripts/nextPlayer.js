@@ -1,9 +1,12 @@
+export let timer = null;
 
 export function nextPlayer(state, txt, highlightCurrentPlayer) {
   const playerKeys = Object.keys(state.savedPlayers);
   if (!state.choice) {
+    clearTimeout(timer);
     txt.innerText =
       "Please choose Truth or Dare before moving to the next player.";
+      timer = setTimeout(()=> {txt.innerText = "Choose Truth or Dare"}, 2000);
     return;
   }
   state.choice = false;

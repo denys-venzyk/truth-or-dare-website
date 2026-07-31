@@ -21,38 +21,46 @@ export function openWindow() {
   const arrowLeft = document.createElement("img");
   const arrowRight = document.createElement("img");
   const logoAndSave = document.createElement("div");
+  const warning = document.createElement("h4");
+  const warningContainer = document.createElement("div");
 
-  arrowLeft.src = "./images/left-arrow.png";
-  arrowRight.src = "./images/right-arrow.png";
+  arrowLeft.src = "./images/left-arrow.webp";
+  arrowRight.src = "./images/right-arrow.webp";
 
   saveBtn.innerText = "Save";
   inputMessage.innerText = "Write down your nickname";
   logoMessage.innerText = "Choose your logo";
+  logoMessage.className = "logo-message";
   playerInput.id = state.playerCount;
-  playerInput.className = "playerName";
+  playerInput.className = "player-name-input";
   playerInput.maxLength = "13";
   playerInput.placeholder = "Player " + state.playerCount;
-  playerLogo.src = "./images/logo1.png";
+  playerLogo.src = "./images/logo1.webp";
   playerLogo.className = "player-logo";
 
   logoAndSave.className = "logo-and-save";
+  warning.className = "warning";
+  warningContainer.className = "warning-container";
+  logoChoice.append(arrowLeft);
+  logoChoice.append(playerLogo);
+  logoChoice.append(arrowRight);
 
-  logoChoice.appendChild(arrowLeft);
-  logoChoice.appendChild(playerLogo);
-  logoChoice.appendChild(arrowRight);
+  warningContainer.append(warning);
 
-  popUp.appendChild(inputMessage);
-  popUp.appendChild(playerInput);
-  popUp.appendChild(logoMessage);
-  logoAndSave.appendChild(logoChoice);
-  logoAndSave.appendChild(saveBtn);
 
-  popUp.appendChild(logoAndSave);
+  popUp.append(inputMessage);
+  popUp.append(playerInput);
+  popUp.append(warningContainer);
+  popUp.append(logoMessage);
+  logoAndSave.append(logoChoice);
+  logoAndSave.append(saveBtn);
 
-  myWindow.appendChild(popUp);
-  document.body.appendChild(myWindow);
+  popUp.append(logoAndSave);
+
+  myWindow.append(popUp);
+  document.body.append(myWindow);
   saveBtn.addEventListener("click", () =>
-    savePlayer(playerInput, myWindow, playerLogo, state)
+    savePlayer(playerInput, myWindow, playerLogo, state, warning)
   );
   arrowLeft.addEventListener("click", () => left(playerLogo, state));
   arrowRight.addEventListener("click", () => right(playerLogo, state));

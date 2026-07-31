@@ -15,10 +15,10 @@ export function displayPlayers(players) {
     item.className = "displayed-player-name";
     container.className = "displayed-player";
     item.textContent = players[player].name;
-    container.appendChild(logo);
-    container.appendChild(item);
+    container.append(logo);
+    container.append(item);
 
-    playerList.appendChild(container);
+    playerList.append(container);
   }
-  document.body.appendChild(playerList);
+  document.body.append(playerList);
 }

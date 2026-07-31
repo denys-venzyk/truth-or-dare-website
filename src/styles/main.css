@@ -19,3 +19,7 @@
 @import './blocks/next-btn.css';
 @import './blocks/choice-btn1.css';
 @import './blocks/choice-btn2.css';
+@import './blocks/warning.css';
+@import './blocks/warning-container.css';
+@import './blocks/logo-message.css';
+@import './blocks/player-name-input.css';

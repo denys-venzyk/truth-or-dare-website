@@ -5,11 +5,16 @@ import { highlightCurrentPlayer } from "./highlightCurrentPlayer.js";
 import { state,txt,startBtn } from "./globalVars.js";
 import {savePlayers} from "./savePlayers.js";
 
+
+ let timer = null;
+ 
 export function startGame() {
   state.savedPlayers = savePlayers();
 
   if (Object.keys(state.savedPlayers).length < 2) {
+    clearTimeout(timer);
     txt.innerText = "Please add at least two players to start the game.";
+    timer = setTimeout(()=> {txt.innerText = ""}, 2000);
     return;
   }
 
@@ -19,17 +24,17 @@ export function startGame() {
   state.newBtn = document.createElement("button");
   state.newBtn.id = "next-btn";
   state.newBtn.innerText = "Next Player";
-  document.body.appendChild(state.newBtn);
+  document.body.append(state.newBtn);
 
   state.choiceBtn1 = document.createElement("button");
   state.choiceBtn1.id = "choice-btn1";
   state.choiceBtn1.innerText = "Truth";
-  document.body.appendChild(state.choiceBtn1);
+  document.body.append(state.choiceBtn1);
 
   state.choiceBtn2 = document.createElement("button");
   state.choiceBtn2.id = "choice-btn2";
   state.choiceBtn2.innerText = "Dare";
-  document.body.appendChild(state.choiceBtn2);
+  document.body.append(state.choiceBtn2);
 
   state.newBtn.addEventListener("click", () => nextPlayer(state, txt, highlightCurrentPlayer));
   state.choiceBtn1.addEventListener("click", () => handleChoice("truth"));
