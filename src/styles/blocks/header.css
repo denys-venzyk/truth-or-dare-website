@@ -10,7 +10,7 @@
 .header__logo{ 
   height: 120px;
   aspect-ratio: 2 / 1;
-  background-image: url('../../images/logo.png');
+  background-image: url('../../images/logo.webp');
   background-size: cover;
   background-position: center;
   border-radius: 50%;

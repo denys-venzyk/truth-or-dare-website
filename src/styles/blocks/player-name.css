@@ -1,5 +1,5 @@
 .player-name {
   grid-column: 2 / 3;
   color: white;
-
+  margin-bottom: 5px;
 }

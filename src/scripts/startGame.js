@@ -24,17 +24,17 @@ export function startGame() {
   state.newBtn = document.createElement("button");
   state.newBtn.id = "next-btn";
   state.newBtn.innerText = "Next Player";
-  document.body.appendChild(state.newBtn);
+  document.body.append(state.newBtn);
 
   state.choiceBtn1 = document.createElement("button");
   state.choiceBtn1.id = "choice-btn1";
   state.choiceBtn1.innerText = "Truth";
-  document.body.appendChild(state.choiceBtn1);
+  document.body.append(state.choiceBtn1);
 
   state.choiceBtn2 = document.createElement("button");
   state.choiceBtn2.id = "choice-btn2";
   state.choiceBtn2.innerText = "Dare";
-  document.body.appendChild(state.choiceBtn2);
+  document.body.append(state.choiceBtn2);
 
   state.newBtn.addEventListener("click", () => nextPlayer(state, txt, highlightCurrentPlayer));
   state.choiceBtn1.addEventListener("click", () => handleChoice("truth"));
